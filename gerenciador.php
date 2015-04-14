@@ -1,7 +1,7 @@
 <?php
   session_cache_expire(10);
   session_start();
-  if (!($_SESSION['Nome'])){ header ("location: ./login.php"); }
+  if (!($_SESSION['name'])){ header ("location: ./login.php"); }
   if (isset($_GET["i"])){
      $_GET["i"];
   }
@@ -46,7 +46,7 @@
             <div class="col-lg-4">
                 <img src="images/robo.png" class="robo">
                 <h3>Olá!
-                    <?php echo $_SESSION[ 'Nome']; ?>
+                    <?php echo $_SESSION['name']; ?>
                 </h3>
                 <small>Hoje é dia 25 de Novembro de 2013, Segunda-Feira.</small>
                 <br />
@@ -74,7 +74,7 @@
                                         <br />
                                     </div>
                                     <input type="submit" id="myDropdown" value="Incluir nova tarefa" class="btn btn-success" />
-                                    <input type="hidden" name="i" value="<?php echo $_GET[" i "];?>"/>
+                                    <input type="hidden" name="i" value="<?php echo $_GET["i"];?>"/>
                                 </form>
                             </div>
                         </div>
@@ -95,7 +95,7 @@
                                         <br />
                                     </div>
                                     <input type="submit" id="myDropdown" value="Incluir nova lista" class="btn btn-success" />
-                                    <input type="hidden" name="i" value="<?php echo $_SESSION[" ID "];?>"/>
+                                    <input type="hidden" name="i" value="<?php echo $_SESSION["ID"];?>"/>
                                 </form>
                             </div>
                         </div>
@@ -108,14 +108,14 @@
         <?php 
           include_once './funcoes/conectar.php';
 
-          $query = $conecta && $banco ? "SELECT * FROM listas WHERE (IDUser = ".$_SESSION["ID"].")" : "";
+          $query = $conecta && $banco ? "SELECT * FROM lists WHERE (user_id = ".$_SESSION["ID"].")" : "";
           $resultado = mysql_query($query) or die("<li class='list-group-item alert alert-danger'>Erroo ao executar :(</li>");
     
           if(mysql_num_rows($resultado) > 0){
             while ($linha = mysql_fetch_array($resultado)) {
               echo "<li class='list-group-item'>
-                      <a href='./gerenciador.php?i=".$linha["IDLista"]."'>".$linha["Nome"]."</a>
-                      <a href='./funcoes/deletar.php?i=".$linha["IDLista"]."' style='float:right;'><b style='font-size:17px'>&times</b></a>
+                      <a href='./gerenciador.php?i=".$linha["id"]."'>".$linha["name"]."</a>
+                      <a href='./funcoes/deletar.php?i=".$linha["id"]."' style='float:right;'><b style='font-size:17px'>&times</b></a>
                     </li>";
             }
           }
@@ -155,20 +155,20 @@
        <?php 
           include_once './funcoes/conectar.php';
             if (isset($_GET["i"])) {
-              $query = $conecta && $banco ? "SELECT * FROM tarefas WHERE ((IDList = '".$_GET["i"]."') AND (Concluida = 0));" : "";
+              $query = $conecta && $banco ? "SELECT * FROM tasks WHERE ((list_id = '".$_GET["i"]."') AND (done = 0));" : "";
               $resultado = mysql_query($query) or die("<li class='list-group-item alert alert-danger'>
                 Erroo ao executar :(</li>");
 
               if(mysql_num_rows($resultado) > 0){
                 while ($linha = mysql_fetch_array($resultado)) {
-                  $dateTime = new DateTime($linha["Data"], new DateTimeZone('America/Sao_Paulo'));
+                  $dateTime = new DateTime($linha["when"], new DateTimeZone('America/Sao_Paulo'));
                   $dt = $dateTime->format("d/m/Y H:i");
 
                   echo "<div class='list-group'>
                          <div class='list-group-item'>
-                           <a href='funcoes/concluir.php?i=".$linha["IDTask"]."&u=".$_GET["i"]."' 
+                           <a href='funcoes/concluir.php?i=".$linha["id"]."&u=".$_GET["i"]."' 
                                 style='float:right;' class='btn btn-info'>Concluir?!</a>
-                          <h4 class='list-group-item-heading'>".$linha["Nome"]."</h4>
+                          <h4 class='list-group-item-heading'>".$linha["name"]."</h4>
                           <p class='list-group-item-text'>".$dt."</p>
                          </div> 
                         </div>";

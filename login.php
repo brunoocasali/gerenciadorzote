@@ -1,11 +1,11 @@
 <?php 
   session_start();
-    if(isset($_SESSION['Controle']) && ($_SESSION['Controle'] == "novo_user")) {
+    if(isset($_SESSION['controle']) && ($_SESSION['controle'] == "novo_user")) {
       echo "<div class='alert alert-info alert-dismissable'>
               <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
               <strong>Seja-Bem Vindo</strong> Essa é sua primeira vez por aqui então, começe fazendo seu Login!!!.
             </div>";
-      $_SESSION['Controle'] = ""; 
+      $_SESSION['controle'] = ""; 
     }
 ?>
 <!DOCTYPE html>
@@ -39,8 +39,8 @@
 
   <!-- PHP Alertas! -->
     <?php 
-      if(isset($_SESSION['Controle'])) { 
-        switch ($_SESSION['Controle']) {
+      if(isset($_SESSION['controle'])) { 
+        switch ($_SESSION['controle']) {
           case 'login_erro':
             echo "<div class='alert alert-danger alert-dismissable'>
                   <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
@@ -60,7 +60,7 @@
       }   ?>
         
   <!-- FIM PHP Alertas! -->
-<form class="form-signin" method="post" action="funcoes/logar.php">
+<form class="form-signin" method="post" action="functions/logar.php">
     <!--<p>E-mail ou Login:</p> -->
     <input type="text" class="form-control" placeholder="E-mail ou Login" name="email" required autofocus>
     <br />
