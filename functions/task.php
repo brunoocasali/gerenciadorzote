@@ -7,16 +7,16 @@
 
 	include_once './conectar.php';
 
-	$query = $conecta && $banco ? "INSERT INTO tarefas (Nome, Data, IDList) VALUES ('$nome', '$data', '$list')" : "";
+	$query = $conecta && $banco ? "INSERT INTO tasks (name, when, list_id) VALUES ('$nome', '$data', '$list')" : "";
 	$insere = mysql_query($query) or die("ERROO meu caro!");
 
 	if ($insere) {
 		session_start();
-		$_SESSION['Controle'] = "incluir_ok";
+		$_SESSION['controle'] = "incluir_ok";
 		header ("location: ../gerenciador.php?i=".$list);
 	} else {
 		session_start();
-		$_SESSION['Controle'] = "incluir_erro";
+		$_SESSION['controle'] = "incluir_erro";
 		header ("location: ../gerenciador.php?i=".$list);
 	}
  ?>
